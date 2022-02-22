@@ -18,7 +18,3 @@ resource "azurerm_subnet" "MyResource" {
      azurerm_virtual_network.example
    ]
 }
-
-output "my_vnets" {
-  value = azurerm_virtual_network.example.id
-}
