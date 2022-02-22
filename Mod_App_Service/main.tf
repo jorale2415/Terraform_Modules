@@ -65,7 +65,7 @@ resource "azurerm_app_service" "app_service1" {
     }
   source_control {
     repo_url = "https://github.com/bdgomey/skillstorm-movies.git"
-    branch = "master"
+    branch = "main"
     manual_integration = true
     use_mercurial = false
   }
@@ -85,7 +85,7 @@ resource "azurerm_app_service" "app_service1" {
     }
   source_control {
     repo_url = "https://github.com/bdgomey/skillstorm-movies.git"
-    branch = "master"
+    branch = "main"
     manual_integration = true
     use_mercurial = false
   }
