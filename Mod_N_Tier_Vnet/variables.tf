@@ -2,7 +2,9 @@
 variable "team" {
   type = string
 }
-
+variable "resource_group" {
+  type = string
+}
 # Region specific
 variable "region" {
   type = string

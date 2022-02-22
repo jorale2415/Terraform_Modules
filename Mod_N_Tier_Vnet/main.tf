@@ -6,7 +6,7 @@ terraform {
 #************************* Start Data Calls *************************************************
 
 data "azurerm_resource_group" "rg" {
-  name = "${var.team}-${var.region}-rg"
+  name = var.resource_group
 }
 data "azurerm_subnet" "bastion_subnet" {
   name = var.bastion
