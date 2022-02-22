@@ -63,12 +63,6 @@ resource "azurerm_app_service" "app_service1" {
   site_config {
       linux_fx_version = "TOMCAT|8.5-java11"
     }
-  source_control {
-    repo_url = "https://github.com/bdgomey/skillstorm-movies.git"
-    branch = "main"
-    manual_integration = true
-    use_mercurial = false
-  }
   tags = {
       environment = "dev"
     }
@@ -83,12 +77,6 @@ resource "azurerm_app_service" "app_service1" {
   site_config {
       linux_fx_version = "TOMCAT|8.5-java11"
     }
-  source_control {
-    repo_url = "https://github.com/bdgomey/skillstorm-movies.git"
-    branch = "main"
-    manual_integration = true
-    use_mercurial = false
-  }
   tags = {
       environment = "dev"
     }
