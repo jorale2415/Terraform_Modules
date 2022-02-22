@@ -1,6 +1,7 @@
 # Common Variables
 variable "team" {
   type = string
+  default = ""
 }
 variable "resource_group" {
   type = string
@@ -8,6 +9,7 @@ variable "resource_group" {
 # Region specific
 variable "region" {
   type = string
+  default = ""
 }
 variable "vnet" {
   type = string
