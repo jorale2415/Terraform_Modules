@@ -12,7 +12,7 @@ variable "app-service" {
   default = {
     "key" = {
       NAME = ["App-Service1", "App-Service2"]
-      LOCATION = ["eastus", "westus2"]
+      LOCATION = ["eastus", "westus3"]
     }
   }
 }
