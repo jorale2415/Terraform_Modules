@@ -2,58 +2,58 @@ terraform {
   required_version = ">= 1.1.5"
 }
 
-
-data "azurerm_public_ip" "rg1_external_pip" {
-  name = "${var.team}-${var.region1}-ExternalLoadBalancer-PIP"
-  resource_group_name = data.azurerm_resource_group.rg1.name
+data "azurerm_resource_group" "primary_rg" {
+  name = var.resource_group1
 }
-data "azurerm_public_ip" "rg2_external_pip" {
-  name = "${var.team}-${var.region2}-ExternalLoadBalancer-PIP"
-  resource_group_name = data.azurerm_resource_group.rg2.name    
-}
-data "azurerm_resource_group" "rg1" {
-  name = "${var.team}-${var.region1}-rg"
-}
-data "azurerm_resource_group" "rg2" {
-  name = "${var.team}-${var.region2}-rg"
+data "azurerm_resource_group" "secondary_rg" {
+  name = var.resource_group2
 }
 data "azurerm_resource_group" "traffic_rg" {
-  name = "${var.team}-${var.traffic_mgr}-rg"
+  name = var.resource_group3
+}
+
+data "azurerm_app_service" "app1" {
+  name                = var.app1_service_name
+  resource_group_name = data.azurerm_resource_group.primary_rg.name
+}
+data "azurerm_app_service" "app2" {
+  name                = var.app2_service_name
+  resource_group_name = data.azurerm_resource_group.secondary_rg.name
 }
 
 resource "azurerm_traffic_manager_profile" "my_traffic_mgr_profile" {
-  name                = "${var.team}-${var.traffic_mgr}"
+  name                = var.Traffic_Manager_Profile_Name
   resource_group_name = data.azurerm_resource_group.traffic_rg.name
 
-  traffic_routing_method = "Priority"
+  traffic_routing_method = var.traffic_routing_method
 
   dns_config {
-    relative_name = "${var.team}-${var.traffic_mgr}"
+    relative_name = var.Dns_Config_Name
     ttl           = 100
   }
 
   monitor_config {
-    protocol                     = "http"
-    port                         = 80
+    protocol                     = var.protocol
+    port                         = var.port
     path                         = "/"
-    interval_in_seconds          = 30
-    timeout_in_seconds           = 9
-    tolerated_number_of_failures = 3
+    interval_in_seconds          = var.interval_in_seconds
+    timeout_in_seconds           = var.timeout_in_seconds
+    tolerated_number_of_failures = var.tolerated_number_of_failures
   }
 }
 
-resource "azurerm_traffic_manager_azure_endpoint" "rg1_external_endpoint" {
-  name               = "${var.team}-${var.region1}-external-endpoint"
+resource "azurerm_traffic_manager_azure_endpoint" "Primary_Endpoint" {
+  name               = "${var.team}-Primary-Endpoint"
   profile_id         = azurerm_traffic_manager_profile.my_traffic_mgr_profile.id
   weight             = 100
   priority           = 1
-  target_resource_id = data.azurerm_public_ip.rg1_external_pip.id
+  target_resource_id = data.azurerm_app_service.app1.id
 }
 
-resource "azurerm_traffic_manager_azure_endpoint" "rg2_external_endpoint" {
-  name               = "${var.team}-${var.region2}-external-endpoint"
+resource "azurerm_traffic_manager_azure_endpoint" "Secondary_Endpoint" {
+  name               = "${var.team}-Secondary-Endpoint"
   profile_id         = azurerm_traffic_manager_profile.my_traffic_mgr_profile.id
   weight             = 100
   priority           = 2
-  target_resource_id = data.azurerm_public_ip.rg2_external_pip.id
+  target_resource_id = data.azurerm_app_service.app2.id
 }
