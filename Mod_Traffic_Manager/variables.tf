@@ -1,4 +1,6 @@
-
+variable "team" {
+  type = string
+}
 variable "resource_group1" {
   type = string
 }
