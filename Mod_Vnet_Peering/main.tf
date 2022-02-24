@@ -20,7 +20,7 @@ data "azurerm_virtual_network" "secondary_vnet" {
 
 resource "azurerm_virtual_network_peering" "vnet_peering_PR_SG" {
    name = "${var.team}-${var.region[0]}-peered-${var.region[1]}"
-   resource_group_name = "${var.team}-${var.resource_groups.key.NAME[0]}"
+   resource_group_name = data.azurerm_resource_group.rg1.name
    virtual_network_name = data.azurerm_virtual_network.primary_vnet.name
    remote_virtual_network_id = data.azurerm_virtual_network.secondary_vnet.id
 }
