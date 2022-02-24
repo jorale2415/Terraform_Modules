@@ -1,9 +1,13 @@
 variable "team" {
   type = string
 }   
-variable "region1" {
-  type = string         
+variable "region" {
+  type = list(string)        
 }
-variable "region2" {
+
+variable "resource_group_1" {
+  type = string
+}
+variable "resource_group_2" {
   type = string
 }
