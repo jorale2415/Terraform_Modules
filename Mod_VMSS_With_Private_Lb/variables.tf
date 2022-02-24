@@ -2,7 +2,9 @@
 variable "team" {
   type = string
 }
-
+variable "resource_group" {
+  type = string
+}
 # ************** Key vault variables ************
 variable "key_vault" {
   type = string

@@ -5,7 +5,7 @@ terraform {
 
 # *************** Data calls from exsisting resources ******************
 data "azurerm_resource_group" "rg" {
-  name = "${var.team}-${var.region}-rg"
+  name = var.resource_group
 }
 data "azurerm_key_vault" "existing" {
   name                = var.key_vault
