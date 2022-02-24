@@ -2,37 +2,21 @@ variable "team" {
   type = string
   default = "Team5"
 }
-variable "app-service" {
-  type = map(
-    object({
-        NAME = list(string)
-        LOCATION = list(string)
-    })
-  )
-  default = {
-    "key" = {
-      NAME = ["App-Service1", "App-Service2"]
-      LOCATION = ["eastus", "westus3"]
-    }
-  }
-}
-
-variable "rg-location" {
+variable "resource_group" {
   type = string
-  default = "eastus"
+}
+variable "app_service_name" {
+  type = string
+}
+variable "app_service_plan_name" {
+  type = string
 }
 
-variable "app-sku" {
-  type = map(
-    object({
-      TIER = list(string)
-      SIZE = list(string)
-    })
-  )
-  default = {
-    "key" = {
-      TIER = ["Standard", "Standard"]
-      SIZE = ["S1", "S2"]
-    }
-  }
+variable "AS_Sku_Tier" {
+  type = string
+  default = "Standard"
+}
+
+variable "AS_Sku_Size" {
+  type = string
 }
