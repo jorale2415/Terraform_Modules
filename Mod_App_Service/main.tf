@@ -17,7 +17,7 @@ resource "azurerm_app_service_plan" "service_plan" {
     environment = "dev"
   }
   depends_on = [
-    azurerm_resource_group.rg
+    data.azurerm_resource_group.rg
   ]
 }
 
