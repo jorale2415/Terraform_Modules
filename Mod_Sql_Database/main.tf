@@ -69,7 +69,7 @@ resource "azurerm_app_service_environment" "app_service_env_secondary_region" {
 */
 
 resource "azurerm_app_service_plan" "my_app_service_plan" {
-  name                = "${var.team}-app-service-plan"
+  name                = "${var.team}-app-service-plan1-${random_string.random.result}"
   location            = data.azurerm_resource_group.rg.location
   resource_group_name = data.azurerm_resource_group.rg.name
 
