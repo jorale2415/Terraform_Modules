@@ -41,7 +41,7 @@ data "azurerm_subnet" "rg2_subnet" {
   resource_group_name  = data.azurerm_resource_group.rg2.name
 }
 
-
+/*
 resource "azurerm_app_service_environment" "app_service_env_primary_region" {
   name                         = "${var.team}-ase"
   subnet_id                    = data.azurerm_subnet.rg1_subnet.id
@@ -66,6 +66,7 @@ resource "azurerm_app_service_environment" "app_service_env_secondary_region" {
     value = "1"
   }
 }
+*/
 
 resource "azurerm_app_service_plan" "my_app_service_plan" {
   name                = "${var.team}-app-service-plan"
@@ -179,7 +180,7 @@ resource "azurerm_sql_failover_group" "fallover_group" {
 
   read_write_endpoint_failover_policy {
     mode          = "Automatic"
-    grace_minutes = 5
+    grace_minutes = 60
   }
 }
 
