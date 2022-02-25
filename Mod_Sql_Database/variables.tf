@@ -22,6 +22,20 @@ variable "primary_resource_group_name" {
 variable "secondary_resource_group_name" {
   type = string 
 }
+variable "rg1_vnet" {
+  type = string
+}
+variable "rg2_vnet" {
+  type = string
+}
+
+variable "web_subnet_primary_region" {
+  type = string
+}
+variable "web_subnet_secondary_region" {
+  type = string
+}
+
 
 variable "team" {
   type = string

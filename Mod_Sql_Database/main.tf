@@ -1,13 +1,3 @@
-/*
-resource "azurerm_resource_group" "rg" {
-  name     = var.rg1
-  location = var.resource_group_location
-}
-resource "azurerm_resource_group" "rg2" {
-  name     = var.rg2
-  location = var.resource_group_location2
-}
-*/
 resource "random_string" "random" {
   length           = 6
   special          = true
@@ -32,7 +22,50 @@ data "azurerm_key_vault_secret" "password" {
   name         = var.secret_password
   key_vault_id = data.azurerm_key_vault.existing.id
 }
+data "azurerm_virtual_network" "rg1_vnet" {
+  name                = var.rg1_vnet
+  resource_group_name = data.azurerm_resource_group.rg.name
+}
+data "azurerm_virtual_network" "rg2_vnet" {
+  name                = var.rg2_vnet
+  resource_group_name = data.azurerm_resource_group.rg2.name
+}
+data "azurerm_subnet" "rg1_subnet" {
+  name = var.web_subnet_primary_region
+  virtual_network_name = data.azurerm_virtual_network.rg1_vnet.name
+  resource_group_name  = data.azurerm_resource_group.rg.name
+}
+data "azurerm_subnet" "rg2_subnet" {
+  name = var.web_subnet_secondary_region
+  virtual_network_name = data.azurerm_virtual_network.rg2_vnet.name
+  resource_group_name  = data.azurerm_resource_group.rg2.name
+}
 
+
+resource "azurerm_app_service_environment" "app_service_env_primary_region" {
+  name                         = "${var.team}-ase"
+  subnet_id                    = data.azurerm_subnet.rg1_subnet.id
+  pricing_tier                 = "I2"
+  front_end_scale_factor       = 10
+  internal_load_balancing_mode = "Web, Publishing"
+
+  cluster_setting {
+    name  = "DisableTls1.0"
+    value = "1"
+  }
+}
+resource "azurerm_app_service_environment" "app_service_env_secondary_region" {
+  name                         = "${var.team}-ase"
+  subnet_id                    = data.azurerm_subnet.rg2_subnet.id
+  pricing_tier                 = "I2"
+  front_end_scale_factor       = 10
+  internal_load_balancing_mode = "Web, Publishing"
+
+  cluster_setting {
+    name  = "DisableTls1.0"
+    value = "1"
+  }
+}
 
 resource "azurerm_app_service_plan" "my_app_service_plan" {
   name                = "${var.team}-app-service-plan"
@@ -48,7 +81,7 @@ resource "azurerm_app_service_plan" "my_app_service_plan" {
 resource "azurerm_app_service_plan" "my_app_service_plan2" {
   name                = "${var.team}-app-service-plan2-${random_string.random.result}"
   location            = data.azurerm_resource_group.rg2.location
-  resource_group_name = data.azurerm_resource_group.rg
+  resource_group_name = data.azurerm_resource_group.rg2.name
 
   sku {
     tier = var.asp_sku
@@ -103,8 +136,8 @@ resource "azurerm_app_service" "my_app_service2" {
 
 resource "azurerm_storage_account" "my_storage_account" {
   name                     = "${var.team}dbstorage"
-  resource_group_name      = data.azurerm_resource_group.rg.name
-  location                 = data.azurerm_resource_group.rg.location
+  resource_group_name      = data.azurerm_key_vault.existing.resource_group_name
+  location                 = data.azurerm_key_vault.existing.location
   account_tier             = var.account_tier
   account_replication_type = var.account_replication_type
 }
