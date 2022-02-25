@@ -144,7 +144,7 @@ resource "azurerm_storage_account" "my_storage_account" {
 
 
 resource "azurerm_sql_server" "primary_sql_server" {
-  name                         = "${var.team}-sql-primary-${random_string.random.result}"
+  name                         = "${var.team}-sql-primary"
   resource_group_name          = data.azurerm_resource_group.rg.name
   location                     = data.azurerm_resource_group.rg.location
   version                      = "12.0"
@@ -153,7 +153,7 @@ resource "azurerm_sql_server" "primary_sql_server" {
 }
 
 resource "azurerm_sql_server" "secondary" {
-  name                         = "${var.team}-sql-secondary-${random_string.random.result}"
+  name                         = "${var.team}-sql-secondary"
   resource_group_name          = data.azurerm_resource_group.rg2.name
   location                     = data.azurerm_resource_group.rg2.location
   version                      = "12.0"
