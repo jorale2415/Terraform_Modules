@@ -102,7 +102,7 @@ resource "azurerm_app_service" "my_app_service" {
   }
 
   app_settings = {
-    "SOME_KEY" = var.some_key
+    "SOME_KEY" = var.database_server1
   }
 
   connection_string {
@@ -124,13 +124,13 @@ resource "azurerm_app_service" "my_app_service2" {
   }
 
   app_settings = {
-    "SOME_KEY" = var.some_key
+    "DatabaseServer1" = var.database_server2
   }
 
   connection_string {
     name  = "${var.team}-db-connection-string"
     type  = var.connection_string_type
-    value = var.connection_string_value
+    value = var.connection_string_value2
   }
 }
 

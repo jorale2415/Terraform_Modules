@@ -57,17 +57,26 @@ variable "scm_type" {
   type = string
   default = "LocalGit"
 }
-variable "some_key" {
+variable "database_server1" {
   type = string
-  default = "some-value"
+  default = "DatabaseServer=team5-failover-group.database.windows.net"
+}
+variable "database_server2" {
+  type = string
+  default = "team5-failover-group.secondary.database.windows.net"
 }
 variable "connection_string_type" {
   type = string
   default = "SQLServer"
 }
+
 variable "connection_string_value" {
   type = string
-  default = "Server=some-server.mydomain.com;Integrated Security=SSPI"
+  default = "Server=team5-failover-group.database.windows.net;Integrated Security=SSPI"
+}
+variable "connection_string_value2" {
+  type = string
+  default = "Server=team5-failover-group.secondary.database.windows.net;Integrated Security=SSPI"
 }
 variable "storage_account_name" {
   type = string
