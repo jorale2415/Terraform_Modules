@@ -11,18 +11,20 @@ data "azurerm_subnet" "subnet" {
   resource_group_name  = data.azurerm_resource_group.rg.name
 }
 
+/*
 resource "azurerm_subnet" "frontend" {
   name                 = "${team}-AG-frontend"
   resource_group_name  = data.azurerm_resource_group.rg.name
   virtual_network_name = data.azurerm_virtual_network.vnet.name
   address_prefixes     = var.address_prefix
 }
+*/
 
 resource "azurerm_subnet" "backend" {
   name                 = "backend"
   resource_group_name  = data.azurerm_resource_group.rg.name
   virtual_network_name = data.azurerm_virtual_network.vnet.name
-  address_prefixes     = ["10.254.2.0/24"]
+  address_prefixes     = data.azurerm_subnet.subnet.address_prefixes
 }
 
 resource "azurerm_public_ip" "pip" {
