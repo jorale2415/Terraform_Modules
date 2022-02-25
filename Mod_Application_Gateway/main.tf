@@ -25,8 +25,8 @@ resource "azurerm_subnet" "backend" {
   address_prefixes     = ["10.254.2.0/24"]
 }
 
-resource "azurerm_public_ip" "example" {
-  name                = "example-pip"
+resource "azurerm_public_ip" "pip" {
+  name                = "${var.team}application-gateway-pip"
   resource_group_name = data.azurerm_resource_group.rg.name
   location            = data.azurerm_resource_group.rg.location
   allocation_method   = "Dynamic"
@@ -56,7 +56,7 @@ resource "azurerm_application_gateway" "network" {
 
   gateway_ip_configuration {
     name      = "my-gateway-ip-configuration"
-    subnet_id = azurerm_subnet.frontend.id
+    subnet_id = data.azurerm_subnet.subnet.id
   }
 
   frontend_port {
@@ -66,7 +66,7 @@ resource "azurerm_application_gateway" "network" {
 
   frontend_ip_configuration {
     name                 = local.frontend_ip_configuration_name
-    public_ip_address_id = azurerm_public_ip.example.id
+    public_ip_address_id = azurerm_public_ip.pip.id
   }
 
   backend_address_pool {
