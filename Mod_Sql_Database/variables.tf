@@ -39,7 +39,7 @@ variable "web_subnet_secondary_region" {
 
 variable "team" {
   type = string
-  default = "Team5"
+  default = "team5"
 }
 variable "asp_sku" {
   type = string
