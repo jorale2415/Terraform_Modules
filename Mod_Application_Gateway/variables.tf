@@ -1,5 +1,6 @@
 variable "team" {
   type = string
+  default = "team5"
 }
 variable "resource_group" {
   type = string
