@@ -24,8 +24,9 @@ resource "azurerm_subnet" "backend" {
   name                 = "backend"
   resource_group_name  = data.azurerm_resource_group.rg.name
   virtual_network_name = data.azurerm_virtual_network.vnet.name
-  address_prefixes     = data.azurerm_subnet.subnet.address_prefixes
+  address_prefixes     = [var.backend_pool]
 }
+
 
 resource "azurerm_public_ip" "pip" {
   name                = "${var.team}application-gateway-pip"
