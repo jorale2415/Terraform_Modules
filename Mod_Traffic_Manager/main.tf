@@ -11,26 +11,7 @@ data "azurerm_resource_group" "secondary_rg" {
 data "azurerm_resource_group" "traffic_rg" {
   name = var.resource_group3
 }
-/*
-data "azurerm_app_service" "app1" {
-  name                = var.app1_service_name
-  resource_group_name = data.azurerm_resource_group.primary_rg.name
-}
-data "azurerm_app_service" "app2" {
-  name                = var.app2_service_name
-  resource_group_name = data.azurerm_resource_group.secondary_rg.name
-}
-*/
-/*
-data "azurerm_application_gateway" "primary_gateway" {
-  name                = "${var.team}-appgateway"
-  resource_group_name = var.resource_group1
-}
-data "azurerm_application_gateway" "secondary_gateway" {
-  name                = "${var.team}-appgateway"
-  resource_group_name = var.resource_group2
-}
-*/
+
 data "azurerm_public_ip" "app_gateway1_pip" {
   name                = "${var.team}application-gateway-pip"
   resource_group_name = var.resource_group1
