@@ -19,13 +19,14 @@ resource "azurerm_subnet" "frontend" {
   address_prefixes     = var.address_prefix
 }
 */
-
+/*
 resource "azurerm_subnet" "backend" {
   name                 = "backend"
   resource_group_name  = data.azurerm_resource_group.rg.name
   virtual_network_name = data.azurerm_virtual_network.vnet.name
   address_prefixes     = [var.backend_pool]
 }
+*/
 
 
 resource "azurerm_public_ip" "pip" {

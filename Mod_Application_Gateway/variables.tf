@@ -11,7 +11,9 @@ variable "vnet" {
 variable "subnet_name" {
   type = string
 }
+/*
 variable "backend_pool" {
   description = "backend pool subnet test"
   type = string
 }
+*/
