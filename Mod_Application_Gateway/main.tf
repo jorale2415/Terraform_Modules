@@ -3,14 +3,17 @@ data "azurerm_resource_group" "rg" {
 }
 data "azurerm_virtual_network" "vnet" {
   name = var.vnet
-  resource_group_name = data.azurerm_resource_group.rg.name
+  resource_group_name = var.resource_group
 }
 data "azurerm_subnet" "subnet" {
   name                 = var.subnet_name
-  virtual_network_name = data.azurerm_virtual_network.vnet.name
-  resource_group_name  = data.azurerm_resource_group.rg.name
+  virtual_network_name = var.vnet
+  resource_group_name  = var.resource_group
 }
-
+data "azurerm_app_service" "app_service" {
+  name                = var.app_service_name
+  resource_group_name = var.resource_group
+}
 /*
 resource "azurerm_subnet" "frontend" {
   name                 = "${team}-AG-frontend"
@@ -75,6 +78,7 @@ resource "azurerm_application_gateway" "network" {
 
   backend_address_pool {
     name = local.backend_address_pool_name
+    fqdns = [data.azurerm_app_service.app_service.outbound_ip_address_list]
   }
 
   backend_http_settings {
