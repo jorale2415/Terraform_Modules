@@ -46,7 +46,7 @@ locals {
 }
 
 resource "azurerm_application_gateway" "network" {
-  name                = "example-appgateway"
+  name                = "${var.team}-appgateway"
   resource_group_name = data.azurerm_resource_group.rg.name
   location            = data.azurerm_resource_group.rg.location
 
@@ -57,7 +57,7 @@ resource "azurerm_application_gateway" "network" {
   }
 
   gateway_ip_configuration {
-    name      = "my-gateway-ip-configuration"
+    name      = "${var.team}-gateway-ip-configuration"
     subnet_id = data.azurerm_subnet.subnet.id
   }
 
