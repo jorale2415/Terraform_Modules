@@ -14,23 +14,6 @@ data "azurerm_app_service" "app_service" {
   name                = var.app_service_name
   resource_group_name = var.resource_group
 }
-/*
-resource "azurerm_subnet" "frontend" {
-  name                 = "${team}-AG-frontend"
-  resource_group_name  = data.azurerm_resource_group.rg.name
-  virtual_network_name = data.azurerm_virtual_network.vnet.name
-  address_prefixes     = var.address_prefix
-}
-*/
-/*
-resource "azurerm_subnet" "backend" {
-  name                 = "backend"
-  resource_group_name  = data.azurerm_resource_group.rg.name
-  virtual_network_name = data.azurerm_virtual_network.vnet.name
-  address_prefixes     = [var.backend_pool]
-}
-*/
-
 
 resource "azurerm_public_ip" "pip" {
   name                = "${var.team}application-gateway-pip"
