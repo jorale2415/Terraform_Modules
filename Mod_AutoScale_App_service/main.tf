@@ -1,7 +1,7 @@
 data "azurerm_resource_group" "rg" {
   name = var.resource_group_name
 }
-data "azurerm_app_service" "asp" {
+data "azurerm_app_service_plan" "asp" {
   name                = "search-app-service"
   resource_group_name = "search-service"
 }
