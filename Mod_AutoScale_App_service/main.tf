@@ -7,7 +7,7 @@ data "azurerm_app_service_plan" "asp" {
 }
 
 resource "azurerm_monitor_autoscale_setting" "autoscale_setting" {
-  name                = "${team}-AutoscaleSetting"
+  name                = "${var.team}-AutoscaleSetting"
   resource_group_name = data.azurerm_resource_group.rg.name
   location            = data.azurerm_resource_group.rg.location
   target_resource_id  = data.azurerm_app_service_plan.asp.id
