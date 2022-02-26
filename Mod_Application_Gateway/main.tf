@@ -78,7 +78,7 @@ resource "azurerm_application_gateway" "network" {
 
   backend_address_pool {
     name = local.backend_address_pool_name
-    fqdns = [data.azurerm_app_service.app_service.outbound_ip_address_list]
+    fqdns = [var.app_service_name]
   }
 
   backend_http_settings {
