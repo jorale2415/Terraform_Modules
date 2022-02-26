@@ -20,6 +20,14 @@ data "azurerm_app_service" "app2" {
   name                = var.app2_service_name
   resource_group_name = data.azurerm_resource_group.secondary_rg.name
 }
+data "azurerm_application_gateway" "primary_gateway" {
+  name                = "${var.team}-appgateway"
+  resource_group_name = var.resource_group1
+}
+data "azurerm_application_gateway" "secondary_gateway" {
+  name                = "${var.team}-appgateway"
+  resource_group_name = var.resource_group2
+}
 
 resource "azurerm_traffic_manager_profile" "my_traffic_mgr_profile" {
   name                = var.Traffic_Manager_Profile_Name
@@ -47,7 +55,7 @@ resource "azurerm_traffic_manager_azure_endpoint" "Primary_Endpoint" {
   profile_id         = azurerm_traffic_manager_profile.my_traffic_mgr_profile.id
   weight             = 100
   priority           = 1
-  target_resource_id = data.azurerm_app_service.app1.id
+  target_resource_id = data.azurerm_application_gateway.primary_gateway.id
 }
 
 resource "azurerm_traffic_manager_azure_endpoint" "Secondary_Endpoint" {
@@ -55,5 +63,5 @@ resource "azurerm_traffic_manager_azure_endpoint" "Secondary_Endpoint" {
   profile_id         = azurerm_traffic_manager_profile.my_traffic_mgr_profile.id
   weight             = 100
   priority           = 2
-  target_resource_id = data.azurerm_app_service.app2.id
+  target_resource_id = data.azurerm_application_gateway.secondary_gateway.id
 }
