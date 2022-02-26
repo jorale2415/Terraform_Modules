@@ -10,13 +10,14 @@ variable "resource_group2" {
 variable "resource_group3" {
   type = string
 }
+/*
 variable "app1_service_name" {
   type = string
 }
 variable "app2_service_name" {
   type = string
 }
-
+*/
 variable "Traffic_Manager_Profile_Name" {
   type = string
 }
