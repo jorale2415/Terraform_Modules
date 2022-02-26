@@ -69,7 +69,7 @@ resource "azurerm_app_service_environment" "app_service_env_secondary_region" {
 */
 
 resource "azurerm_app_service_plan" "my_app_service_plan" {
-  name                = "${var.team}-app-service-plan1-${random_string.random.result}"
+  name                = "${var.team}-app-service-plan1"
   location            = data.azurerm_resource_group.rg.location
   resource_group_name = data.azurerm_resource_group.rg.name
 
@@ -80,7 +80,7 @@ resource "azurerm_app_service_plan" "my_app_service_plan" {
 }
 
 resource "azurerm_app_service_plan" "my_app_service_plan2" {
-  name                = "${var.team}-app-service-plan2-${random_string.random.result}"
+  name                = "${var.team}-app-service-plan2"
   location            = data.azurerm_resource_group.rg2.location
   resource_group_name = data.azurerm_resource_group.rg2.name
 
@@ -91,7 +91,7 @@ resource "azurerm_app_service_plan" "my_app_service_plan2" {
 }
 
 resource "azurerm_app_service" "my_app_service" {
-  name                = "${var.team}-app-service-${random_string.random.result}"
+  name                = "${var.team}-app-service-012421"
   location            = data.azurerm_resource_group.rg.location
   resource_group_name = data.azurerm_resource_group.rg.name
   app_service_plan_id = azurerm_app_service_plan.my_app_service_plan.id
@@ -113,7 +113,7 @@ resource "azurerm_app_service" "my_app_service" {
 }
 
 resource "azurerm_app_service" "my_app_service2" {
-  name                = "${var.team}-app-service2-${random_string.random.result}"
+  name                = "${var.team}-app-service2-131246"
   location            = data.azurerm_resource_group.rg2.location
   resource_group_name = data.azurerm_resource_group.rg2.name
   app_service_plan_id = azurerm_app_service_plan.my_app_service_plan2.id
