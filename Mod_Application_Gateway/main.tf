@@ -61,7 +61,7 @@ resource "azurerm_application_gateway" "network" {
 
   backend_address_pool {
     name = local.backend_address_pool_name
-    fqdns = ["${var.app_service_name}.azurewebsites.net"]
+    fqdns = ["${var.app_service_name}"]
   }
 
   backend_http_settings {
@@ -71,6 +71,7 @@ resource "azurerm_application_gateway" "network" {
     port                  = 80
     protocol              = "Http"
     request_timeout       = 60
+    pick_host_name_from_backend_address = true
   }
 
   http_listener {
