@@ -41,33 +41,6 @@ data "azurerm_subnet" "rg2_subnet" {
   resource_group_name  = data.azurerm_resource_group.rg2.name
 }
 
-/*
-resource "azurerm_app_service_environment" "app_service_env_primary_region" {
-  name                         = "${var.team}-ase"
-  subnet_id                    = data.azurerm_subnet.rg1_subnet.id
-  pricing_tier                 = "I2"
-  front_end_scale_factor       = 10
-  internal_load_balancing_mode = "Web, Publishing"
-
-  cluster_setting {
-    name  = "DisableTls1.0"
-    value = "1"
-  }
-}
-resource "azurerm_app_service_environment" "app_service_env_secondary_region" {
-  name                         = "${var.team}-ase"
-  subnet_id                    = data.azurerm_subnet.rg2_subnet.id
-  pricing_tier                 = "I2"
-  front_end_scale_factor       = 10
-  internal_load_balancing_mode = "Web, Publishing"
-
-  cluster_setting {
-    name  = "DisableTls1.0"
-    value = "1"
-  }
-}
-*/
-
 resource "azurerm_app_service_plan" "my_app_service_plan" {
   name                = "${var.team}-app-service-plan1"
   location            = data.azurerm_resource_group.rg.location
