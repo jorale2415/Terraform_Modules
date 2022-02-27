@@ -51,7 +51,7 @@ variable "asp_tier" {
 }   
 variable "dotnet_framework_version" {
   type = string
-  default = "v4.0"
+  default = "v6.0"
 }
 variable "scm_type" {
   type = string
