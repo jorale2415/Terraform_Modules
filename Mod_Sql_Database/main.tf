@@ -70,14 +70,16 @@ resource "azurerm_app_service" "my_app_service" {
   app_service_plan_id = azurerm_app_service_plan.my_app_service_plan.id
 
   site_config {
-    dotnet_framework_version = var.dotnet_framework_version
-    scm_type                 = var.scm_type
+    app_command_line =  ""
+    linux_fx_version = "DOCKER|appsvcsample/python-helloworld:latest"
   }
 
   app_settings = {
-    "SOME_KEY" = var.database_server1
+    "DatabaseServer1" = var.database_server1
+    "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = "false"
+    "DOCKER_REGISTRY_SERVER_URL" = "https://index.docker.io"
   }
-
+  
   connection_string {
     name  = "${var.team}-db-connection-string"
     type  = var.connection_string_type
@@ -92,12 +94,14 @@ resource "azurerm_app_service" "my_app_service2" {
   app_service_plan_id = azurerm_app_service_plan.my_app_service_plan2.id
 
   site_config {
-    dotnet_framework_version = var.dotnet_framework_version
-    scm_type                 = var.scm_type
+    app_command_line =  ""
+    linux_fx_version = "DOCKER|appsvcsample/python-helloworld:latest"
   }
 
   app_settings = {
-    "DatabaseServer1" = var.database_server2
+    "DatabaseServer2" = var.database_server2
+    "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = "false"
+    "DOCKER_REGISTRY_SERVER_URL" = "https://index.docker.io"
   }
 
   connection_string {
