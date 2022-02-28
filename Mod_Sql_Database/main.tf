@@ -45,6 +45,8 @@ resource "azurerm_app_service_plan" "my_app_service_plan" {
   name                = "${var.team}-app-service-plan1"
   location            = data.azurerm_resource_group.rg.location
   resource_group_name = data.azurerm_resource_group.rg.name
+  kind                = "Linux"
+  reserved            = true
 
   sku {
     tier = var.asp_sku
@@ -56,6 +58,8 @@ resource "azurerm_app_service_plan" "my_app_service_plan2" {
   name                = "${var.team}-app-service-plan2"
   location            = data.azurerm_resource_group.rg2.location
   resource_group_name = data.azurerm_resource_group.rg2.name
+  kind                = "Linux"
+  reserved            = true
 
   sku {
     tier = var.asp_sku
@@ -71,7 +75,8 @@ resource "azurerm_app_service" "my_app_service" {
 
   site_config {
     app_command_line =  ""
-    linux_fx_version = "DOCKER|appsvcsample/python-helloworld:latest"
+    linux_fx_version = "DOCKER|jalex88/movie_app:latest"
+    always_on = true
   }
 
   app_settings = {
@@ -79,7 +84,7 @@ resource "azurerm_app_service" "my_app_service" {
     "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = "false"
     "DOCKER_REGISTRY_SERVER_URL" = "https://index.docker.io"
   }
-  
+
   connection_string {
     name  = "${var.team}-db-connection-string"
     type  = var.connection_string_type
@@ -95,7 +100,8 @@ resource "azurerm_app_service" "my_app_service2" {
 
   site_config {
     app_command_line =  ""
-    linux_fx_version = "DOCKER|appsvcsample/python-helloworld:latest"
+    linux_fx_version = "DOCKER|jalex88/movie_app:latest"
+    always_on = true
   }
 
   app_settings = {
@@ -103,7 +109,6 @@ resource "azurerm_app_service" "my_app_service2" {
     "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = "false"
     "DOCKER_REGISTRY_SERVER_URL" = "https://index.docker.io"
   }
-
   connection_string {
     name  = "${var.team}-db-connection-string"
     type  = var.connection_string_type
