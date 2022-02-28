@@ -64,6 +64,15 @@ resource "azurerm_application_gateway" "network" {
     fqdns = ["${var.app_service_name}"]
   }
 
+  probe {
+    name                  = "http-probe-gw"
+    interval              = 30
+    protocol              = "Http"
+    path                  = "/path1/"
+    timeout               = 60
+    unhealthy_threshold   = 3
+  }
+  
   backend_http_settings {
     name                  = local.http_setting_name
     cookie_based_affinity = "Disabled"
@@ -72,8 +81,9 @@ resource "azurerm_application_gateway" "network" {
     protocol              = "Http"
     request_timeout       = 60
     pick_host_name_from_backend_address = true
+    probe_name = "http-probe-gw"
   }
- 
+
   http_listener {
     name                           = local.listener_name
     frontend_ip_configuration_name = local.frontend_ip_configuration_name
