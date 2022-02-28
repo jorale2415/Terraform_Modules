@@ -68,7 +68,7 @@ resource "azurerm_application_gateway" "network" {
     name                  = "http-probe-gw"
     interval              = 30
     protocol              = "Http"
-    path                  = "/path1/"
+    path                  = "/"
     timeout               = 60
     unhealthy_threshold   = 3
     pick_host_name_from_backend_http_settings = true
@@ -77,7 +77,7 @@ resource "azurerm_application_gateway" "network" {
   backend_http_settings {
     name                  = local.http_setting_name
     cookie_based_affinity = "Disabled"
-    path                  = "/path1/"
+    path                  = "/"
     port                  = 80
     protocol              = "Http"
     request_timeout       = 60
