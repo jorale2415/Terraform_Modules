@@ -31,12 +31,12 @@ data "azurerm_virtual_network" "rg2_vnet" {
   resource_group_name = data.azurerm_resource_group.rg2.name
 }
 data "azurerm_subnet" "rg1_subnet" {
-  name = var.web_subnet_primary_region
+  name = var.Db_subnet_primary_region
   virtual_network_name = data.azurerm_virtual_network.rg1_vnet.name
   resource_group_name  = data.azurerm_resource_group.rg.name
 }
 data "azurerm_subnet" "rg2_subnet" {
-  name = var.web_subnet_secondary_region
+  name = var.Db_subnet_secondary_region
   virtual_network_name = data.azurerm_virtual_network.rg2_vnet.name
   resource_group_name  = data.azurerm_resource_group.rg2.name
 }
@@ -90,6 +90,7 @@ resource "azurerm_app_service" "my_app_service" {
     type  = var.connection_string_type
     value = var.connection_string_value
   }
+  
 }
 
 resource "azurerm_app_service" "my_app_service2" {
@@ -114,6 +115,7 @@ resource "azurerm_app_service" "my_app_service2" {
     type  = var.connection_string_type
     value = var.connection_string_value2
   }
+  
 }
 
 

@@ -29,10 +29,10 @@ variable "rg2_vnet" {
   type = string
 }
 
-variable "web_subnet_primary_region" {
+variable "Db_subnet_primary_region" {
   type = string
 }
-variable "web_subnet_secondary_region" {
+variable "Db_subnet_secondary_region" {
   type = string
 }
 
