@@ -72,6 +72,9 @@ resource "azurerm_application_gateway" "network" {
     timeout               = 60
     unhealthy_threshold   = 3
     pick_host_name_from_backend_http_settings = true
+    match {
+      status_code = [200, 399]
+    }
   }
 
   backend_http_settings {
