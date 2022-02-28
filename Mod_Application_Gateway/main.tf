@@ -73,7 +73,7 @@ resource "azurerm_application_gateway" "network" {
     request_timeout       = 60
     pick_host_name_from_backend_address = true
   }
-
+ 
   http_listener {
     name                           = local.listener_name
     frontend_ip_configuration_name = local.frontend_ip_configuration_name
