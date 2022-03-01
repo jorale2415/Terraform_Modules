@@ -61,7 +61,7 @@ resource "azurerm_network_security_group" "bastionnsg" {
     }
     security_rule {
         name                       = "AppGateway80"
-        priority                   = 1003
+        priority                   = 1004
         direction                  = "Inbound"
         access                     = "Allow"
         protocol                   = "Tcp"
